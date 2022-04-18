@@ -21,5 +21,15 @@ if (( ${+functions[git-info]} )); then
   autoload -Uz add-zsh-hook && add-zsh-hook precmd git-info
 fi
 
+zstyle ':zim:duration-info' threshold 2
+zstyle ':zim:duration-info' format '(%d) '
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec duration-info-preexec
+add-zsh-hook precmd duration-info-precmd
+
+RPS1='${duration_info}%'
+
 PS1='%(?:%F{green}:%F{red})➜ %F{white}$(prompt-pwd)${(e)git_info[prompt]}%f '
-unset RPS1
+#unset RPS1
+
